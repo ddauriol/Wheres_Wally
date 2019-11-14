@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Where's Wally - Desafio 333 Novembro 2019</title>
+</head>
+
+<!-- Bootstrap Material -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<link rel="stylesheet"
+    href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+    integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+<!-- Styles -->
+<link rel="stylesheet" href="./css/style.css">
+
+<!-- Magnifier.js -->
+<link rel="stylesheet" href="./css/magnifier.css">
+
+<body>
+    <div class="container">
+        <!-- Manu Superior -->
+        <div class="row navbar fixed-top alert-danger">
+            <div class="col-2 text-left">
+                <img src="./img/logo/logo_wally_code_falado.png" width="20%" title="Desafio 333 Novembro-2016" />
+            </div>
+            <div id='div_logo' class="col-8 text-center">
+                <img src="./img/title_wally.png" width="12%" title="Desafio 333 Novembro-2016" />
+            </div>
+            <div id='div_logo' class="col-2 text-rigth">
+                <div class="row">
+                    <h4><span id='username' class="badge badge-info">-</span></h4>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <!-- Alerta User Desconectado -->
+        <div class="alert alert-danger mt-5" id="user-alert" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Erro! </strong> Jogador desconectado.
+        </div>
+
+        <!-- DIV primcipal -->
+        <div id='div_game' class="row mt-4">
+
+            <!-- Game DIV -->
+            <div id='div_img_place' class="col-9">
+                <div class="card mt-2">
+                    <img id="img_place_wally" alt="" src="" width="825px" data-large-img-wrapper="preview"
+                        class="magnifier-thumb-wrapper" />
+                    <div id="resultado"></div>
+                </div>
+            </div>
+
+            <!-- Div Informações / Chat / Zoom -->
+            <div class="col-3">
+                <!-- Informações -->
+                <div class="card" id="draggableInfo" style="display: block;"
+                    title="Mova a janela para onde desejar">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6">
+                                <h6>Informações</h6>
+                            </div>
+                            <div class="col-6 text-right">
+                                <button type="button" class="btn btn-danger bmd-btn-icon active"
+                                    data-toggle="collapse" data-target="#collapseInfo" aria-expanded="true"
+                                    aria-controls="collapseInfo">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body collapse hide" id="collapseInfo">
+                        <h6>Posição em X
+                            <span id="x" class="badge badge-danger"></span></h6>
+                        <h6>Posição em Y
+                            <span id="y" class="badge badge-danger"></span></h6>
+                        <h6>Tentativas
+                            <span id="n_tentativas" class="badge badge-danger"></span></h6>
+                        <button type="button" class="btn btn-raised btn-danger mt-3 mb-3"
+                        id="button_desconectar" style="display: none;">Desconectar</button>
+                        <button type="button" class="btn btn-raised btn-success mt-3 mb-3"
+                        id="button_conectar">Conectar</button>
+                    </div>
+                </div>
+
+                <!-- Zoom -->
+                <div class="card mt-2" id="draggableZoom" style="display: block;"
+                    title="Mova a janela para onde desejar">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6">
+                                <h6>Zoom</h6>
+                            </div>
+                            <div class="col-6 text-right">
+                                <button type="button" class="btn btn-danger bmd-btn-icon active btn-small"
+                                    data-toggle="collapse" data-target="#collapseZoom" aria-expanded="true"
+                                    aria-controls="collapseZoom">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body collapse show" id="collapseZoom">
+                        <div class="magnifier-preview" id="preview">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat -->
+                <div id="div_chat" class="" style="display: block;" title="Mova a janela para onde desejar">
+                    <div class="card mt-2">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6>Chat</h6>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <button type="button" class="btn btn-danger bmd-btn-icon active btn-small"
+                                        data-toggle="collapse" data-target="#collapseChat" aria-expanded="true"
+                                        aria-controls="collapseChat">
+                                        <i class="material-icons">more_vert</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body collapse hide" id="collapseChat">
+                            <form class="mb-1">
+                                <div class="form-group mb-1">
+                                    <!-- left unspecified, .bmd-form-group will be automatically added (inspect the code) -->
+                                    <label for="chat_input" class="bmd-label-floating">Mensagem</label>
+                                    <input type="text" class="form-control" id="chat_input">
+                                    <div class="text-center mt-1">
+                                        <a href="#" id="button_chat" class="btn btn-raised btn-info">Enviar</a>
+                                    </div>
+                                </div>
+                            </form>
+                            <textarea name="" id="textarea_chat_mensagem" rows="12" cols="26"
+                                disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIV Alert -->
+        <br>
+        <div class="alert alert-success" id="success-alert" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Sucesso! </strong> Jogador conectado.
+        </div>
+        <div class="alert alert-danger" id="danger-alert" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Atenção! </strong> Jogador desconectado.
+        </div>
+
+        <!-- Botões Flutuantes -->
+        <button type="button" class="btn btn-primary bmd-btn-fab btn-float-chat" id="show_chat"
+            title="Esconde e mostra a janela do Chat">
+            <i class="material-icons">chat</i>
+        </button>
+        <button type="button" class="btn btn-danger bmd-btn-fab btn-float-zoom" id="show_zoom"
+            title="Esconde e mostra a janela do Zoom">
+            <i class="material-icons">zoom_in</i>
+        </button>
+        <button type="button" class="btn btn-info bmd-btn-fab btn-float-info" id="show_info"
+            title="Esconde e mostra a janela de Informações">
+            <i class="material-icons">info</i>
+        </button>
+
+        <!-- Modal Resultado-->
+        <div class="modal fade" id="modal_resultado" tabindex="-1" role="dialog"
+            aria-labelledby="modal_resultado" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header alert-success text-center">
+                        <h5 class="modal-title text-center mb-2" id="modal_resultado_title">Acharam o Wally</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id='resultado_out'></p>
+                    </div>
+                    <div class="modal-footer mb-2">
+                        <div class="col-6 text-center">
+                            <button type="button" class="btn btn-raised btn-danger"
+                                data-dismiss="modal" id='button_desconect_modal'>Desconectar</button>
+                        </div>
+                        <div class="col-6 text-center">
+                            <button type="button" class="btn btn-raised btn-info"
+                            id='button_jogar_novamente'>Jogar Novamente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Connect-->
+        <div class="modal fade" id="modal_conectar" tabindex="-1" role="dialog" aria-labelledby="modal_conectar"
+            aria-hidden="true">
+
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <div id='div_logo' class="text-left">
+                            <img src="./img/title_wally.png" width="20%" title="Desafio 333 Novembro-2016" />
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Alerta User sem UserName -->
+                        <div class="alert alert-danger mt-5" id="user-alert-modal" style="display: none;">
+                            <button type="button" class="close" data-dismiss="alert">x</button>
+                            <strong>Erro! </strong> Digite um nome de usuário.
+                        </div>
+                        <dvi class="row">
+                            <div class="col-4">
+                                <div class="card mt-2">
+                                    <div class="card-header">
+                                        <h6>Criar novo jogo</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="form-group mt-2">
+                                                <label for="userName">Nome do Usuário</label>
+                                                <input type="text" class="form-control" id="userName"
+                                                    aria-describedby="userName" placeholder="Entre com o Usuário">
+                                            </div>
+                                            <div class="form-group mt-5">
+                                                <label for="cenario_select">Selecione o cenário</label>
+                                                <select class="form-control" id="cenario_select">
+                                                    <option value="1">Estação de Trem</option>
+                                                    <option value="2">Aeroporto</option>
+                                                    <option value="3">Praia</option>
+                                                    <option value="4">Piratas</option>
+                                                    <option value="5">Cidade</option>
+                                                    <option value="6">Navio</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12 text-center">
+                                                <button type="button" class="btn btn-raised btn-success"
+                                                id='button_criar_jogo'>Criar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8 card-columns" id="div_lista_de_jogos">
+                            </div>
+                        </dvi>
+                    </div>
+                    <div class="modal-footer mb-2">
+                        <div class="col-12 text-center">
+                            <h5>Crie uma sala nova ou entre em alguma.</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Material -->
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- popper -->
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous">
+    </script>
+
+    <!-- Bootstrap Material -->
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous">
+    </script>
+
+    <!-- Socket.IO -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js">
+    </script>
+
+    <!-- Magnifier.js -->
+    <script src="./js/Event.js"></script>
+
+    <!-- Magnifier.js -->
+    <script src="./js/Magnifier.js"></script>
+
+    <!-- Script Principal -->
+    <script src="js/main.js"></script>
+
+    <!-- Carregamentos Iniciais -->
+    <script>
+        $(document).ready(function () {
+
+            // Carregamento das funções dos botões
+            $('#button_chat').on('click', function () {
+                SendMessageChat()
+            });
+
+            $('#show_chat').on('click', function () {
+                ShowDivChat()
+            });
+
+            $('#show_zoom').on('click', function () {
+                ShowDivZoom()
+            });
+
+            $('#show_info').on('click', function () {
+                ShowDivInfo()
+            });
+
+            $('#button_criar_jogo').on('click', function () {
+                CriarJogo()
+            });
+
+            $('#button_desconect_modal').on('click', function () {
+                Desconectar()
+            });
+
+            $('#button_desconectar').on('click', function () {
+                Desconectar()
+            });
+
+            $('#button_conectar').on('click', function () {
+                document.location.reload(true)
+            });
+
+            $('#button_jogar_novamente').on('click', function () {
+                $('#modal_resultado').modal('hide')
+                LoadImageWally(0)
+                $('#modal_conectar').modal('show')
+            });
+            
+            // Carrega o modal inicial com as salas
+            $('#modal_conectar').modal('show')
+            $("#modal_conectar").on('shown.bs.modal', function(){
+                ListarJogosAtuais('-1')
+            });
+
+            // Ação após o modal dos resultados serem fechados.
+            $("#modal_resultado").on('hidden.bs.modal', function(){
+                
+            });
+
+            // Monitoramento das respostas do servidor.
+            socket.on('jogador_conectado', function (msg) {
+                $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-alert").slideUp(500);
+                });
+            });
+
+            socket.on('jogador_desconectado', function (msg) {
+                $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#danger-alert").slideUp(500);
+                });
+            });
+
+            socket.on('jogo_criado', function (data) {
+                numero_tentativas = 0
+                cenario_atual = data[data.length-1].place
+                LoadImageWally (cenario_atual)
+                inicio_jogo = data[data.length-1].start
+                sala_atual = data.length-1
+                userNameLabel.innerHTML = user_name;
+                $('#modal_conectar').modal('hide')
+                document.getElementById("button_conectar").style.display = 'none'
+                document.getElementById("button_desconectar").style.display = 'block'
+            });
+
+            socket.on('dados_do_jogo', function (data) {
+                numero_tentativas = 0
+                cenario_atual = data.place
+                LoadImageWally(cenario_atual)
+                inicio_jogo = data.start
+                userNameLabel.innerHTML = user_name;
+                $('#modal_conectar').modal('hide')
+                document.getElementById("button_conectar").style.display = 'none'
+                document.getElementById("button_desconectar").style.display = 'block'
+            });
+
+            socket.on('message', function (msg) {
+                InsertChatMessage(msg)
+            });
+
+            socket.on('lista_de_jogos', function (data) {
+                CriarCardsGamesInfo(data)
+            });
+
+            socket.on('resultado', function (data) {
+                if (Number(data.room) === sala_atual){
+                    resultadoOut.innerHTML = data.msg
+                    $('#modal_resultado').modal('show')
+                    sala_atual = -1
+                }
+            });
+        });
+    </script>
+
+    <!-- Habilita as janelas que podem ser movidas -->
+    <script>
+        $(function () {
+            $("#draggableInfo").draggable();
+            $("#draggableZoom").draggable();
+            $("#div_chat").draggable();
+        });
+    </script>
+
+    <!-- Carregar Imagens Randomicamente -->
+    <script>
+        LoadImageWally(0)
+    </script>
+
+</body>
+
+</html>
