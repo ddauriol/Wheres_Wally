@@ -1,0 +1,44 @@
+[
+    {
+        "place":"wally_place_1",
+        "x_min": "585",
+        "x_max": "611",
+        "y_min": "170",
+        "y_max": "195"
+    },
+    {
+        "place":"wally_place_2",
+        "x_min": "225",
+        "x_max": "245",
+        "y_min": "180",
+        "y_max": "200"
+    },
+    {
+        "place":"wally_place_3",
+        "x_min": "505",
+        "x_max": "525",
+        "y_min": "175",
+        "y_max": "200"
+    },
+    {
+        "place":"wally_place_4",
+        "x_min": "795",
+        "x_max": "810",
+        "y_min": "195",
+        "y_max": "215"
+    },
+    {
+        "place":"wally_place_5",
+        "x_min": "400",
+        "x_max": "405",
+        "y_min": "195",
+        "y_max": "215"
+    },
+    {
+        "place":"wally_place_6",
+        "x_min": "710",
+        "x_max": "725",
+        "y_min": "390",
+        "y_max": "415"
+    }
+]
