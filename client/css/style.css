@@ -1,0 +1,53 @@
+#overlay {
+    width: 200px;
+    height: 150px;
+    background-repeat: no-repeat;
+}
+
+.config-image {
+    background: url("../img/config_wally.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 350px
+}
+
+#resultado {
+    position: absolute;
+    top: 250px;
+    left: 350px;
+    width: 50px;
+    height: 50px;
+    border: 3px solid red;
+    z-index: 2;
+    display: none;
+}
+
+.btn-float-chat {
+    position: absolute;
+    left: 92%;
+    bottom: 40px;
+    z-index: 2;
+}
+.btn-float-info {
+    position: absolute;
+    left: 92%;
+    bottom: 100px;
+    z-index: 2;
+}
+.btn-float-zoom {
+    position: absolute;
+    left: 92%;
+    bottom: 160px;
+    z-index: 2;
+}
+
+.card-sala{
+    width: 200px !important;
+    height: 225px;
+}
+
+.card-columns {
+    column-count: 2;
+  }
