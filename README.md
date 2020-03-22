@@ -3,6 +3,8 @@
 
 Where's Wally? (Onde Está Wally? no Brasil) é uma série de livros de caráter infanto-juvenil criada pelo ilustrador britânico Martin Handford, baseada em ilustrações e pequenos textos, a série deu origem a uma série animada, uma tira de jornal, uma coleção de 52 revistas semanais intitulada O Mundo de Wally, e jogos eletrônicos. [wiki](https://pt.wikipedia.org/wiki/Where%27s_Wally%3F)
 
+[JOGAR] (https://whereswallydesafio333.herokuapp.com/)
+
 ## Desafio 333
 O #Desafio333 é um desafio mensal SIMPLES com o objetivo de convidar a comunidade a conhecer novas ferramentas. A cada mês, o desafio girará em torno de uma tecnologia diferente. Neste mês de Novembro, a tecnologia abordada será o WebSocket. [Codigo Falado](https://github.com/codigofalado/desafio333)
 
