@@ -103,7 +103,7 @@ def handleEntrarNoJogo(data):
     emit('dados_do_jogo', gamesInfo)
 
 
-@app.route('/cheats')
+@app.route('/cheats', methods=['POST'])
 def cheats():
     if 'place' in request.args:
         place = request.args.get('place', default=0, type=int)
